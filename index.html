@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="styles/styles.css">
+   <title>Trivia Quiz</title>
+</head>
+
+<body>
+   <main id="game-container">
+      <div id="main-menu">
+         <div id="title-container" class="animate-border change-color">
+            <div></div>
+            <h2 id="slogan" class="animate">
+               <span>Answer em fast</span>
+               <span class="sp-ch">!</span>
+            </h2>
+            <h1 id="title" class="animate">
+               <span>Trivia</span>
+               <span>Quiz</span>
+            </h1>
+         </div>
+         <button id="play-btn">
+            <object id="play-btn-svg-vivus" data="assets//imgs/play-icon.svg" type="image/svg+xml"></object>
+            <object id="play-btn-svg" data="assets//imgs/play-icon.svg" type="image/svg+xml"></object>
+         </button>
+      </div>
+      <div id="game-modes">
+         <h2 class="header">Game Modes</h2>
+         <div id="mode-btns-container">
+            <button id="classic">Classic</button>
+            <button id="countdown">Countdown</button>
+            <button id="adventure">Adventure</button>
+         </div>
+         <button id="home-btn"></button>
+      </div>
+      <div id="categories-container">
+         <h2 class="header">Choose Category</h2>
+         <div id="category-selector-container">
+            <button id="category-selector">
+               <img id="down-arrow" src="assets/imgs/down-arrow.svg" alt="down arrow">
+               Random
+            </button>
+            <ul id="categories">
+               <li>Random</li>
+               <li>General Knowledge</li>
+               <li>Books</li>
+               <li>Film</li>
+               <li>Music</li>
+               <li>Musicals & Theatres</li>
+               <li>Television</li>
+               <li>Video Games</li>
+               <li>Board Games</li>
+               <li>Science & Nature</li>
+               <li>Computers</li>
+               <li>Mathematics</li>
+               <li>Mythology</li>
+               <li>Sports</li>
+               <li>Geography</li>
+               <li>History</li>
+               <li>Politics</li>
+               <li>Art</li>
+               <li>Celebrities</li>
+               <li>Animals</li>
+               <li>Vehicles</li>
+               <li>Comics</li>
+               <li>Gadgets</li>
+               <li>Anime & Manga</li>
+               <li>Cartoon & Animation</li>
+            </ul>
+         </div>
+         <button id="check-mark-btn"></button>
+      </div>
+      <div id="levels-container">
+         <h2 class="header">Levels</h2>
+         <div id="level-grid">
+            <div class="level open">1</div>
+            <div class="level">2</div>
+            <div class="level">3</div>
+            <div class="level">4</div>
+            <div class="level">5</div>
+            <div class="level">6</div>
+            <div class="level">7</div>
+            <div class="level">8</div>
+            <div class="level">9</div>
+            <div class="level">10</div>
+            <div class="level">11</div>
+            <div class="level">12</div>
+            <div class="level">13</div>
+            <div class="level">14</div>
+            <div class="level">15</div>
+            <div class="level">16</div>
+            <div class="level">17</div>
+            <div class="level">18</div>
+            <div class="level">19</div>
+            <div class="level">20</div>
+            <div class="level">21</div>
+            <div class="level">22</div>
+            <div class="level">23</div>
+            <div class="level">24</div>
+            <div class="level">25</div>
+            <div class="level">26</div>
+            <div class="level">27</div>
+            <div class="level">28</div>
+            <div class="level">29</div>
+            <div class="level">30</div>
+            <div class="level">31</div>
+            <div class="level">32</div>
+            <div class="level">34</div>
+            <div class="level">35</div>
+            <div class="level">36</div>
+            <div class="level">37</div>
+            <div class="level">38</div>
+            <div class="level">39</div>
+            <div class="level">40</div>
+            <div class="level">41</div>
+            <div class="level">42</div>
+            <div class="level">43</div>
+            <div class="level">44</div>
+            <div class="level">45</div>
+            <div class="level">46</div>
+            <div class="level">47</div>
+            <div class="level">48</div>
+            <div class="level">49</div>
+            <div class="level">50</div>
+            <div class="level">51</div>
+            <div class="level">52</div>
+            <div class="level">53</div>
+            <div class="level">54</div>
+            <div class="level">55</div>
+            <div class="level">56</div>
+            <div class="level">57</div>
+            <div class="level">58</div>
+            <div class="level">59</div>
+            <div class="level">60</div>
+            <div class="level">61</div>
+            <div class="level">62</div>
+            <div class="level">63</div>
+            <div class="level">64</div>
+            <div class="level">65</div>
+            <div class="level">66</div>
+            <div class="level">67</div>
+            <div class="level">68</div>
+            <div class="level">69</div>
+            <div class="level">70</div>
+            <div class="level">71</div>
+            <div class="level">72</div>
+            <div class="level">73</div>
+            <div class="level">74</div>
+            <div class="level">75</div>
+            <div class="level">76</div>
+            <div class="level">77</div>
+            <div class="level">78</div>
+            <div class="level">79</div>
+            <div class="level">80</div>
+            <div class="level">81</div>
+            <div class="level">82</div>
+            <div class="level">84</div>
+            <div class="level">85</div>
+            <div class="level">86</div>
+            <div class="level">87</div>
+            <div class="level">88</div>
+            <div class="level">89</div>
+            <div class="level">90</div>
+            <div class="level">91</div>
+            <div class="level">92</div>
+            <div class="level">93</div>
+            <div class="level">94</div>
+            <div class="level">95</div>
+            <div class="level">96</div>
+            <div class="level">97</div>
+            <div class="level">98</div>
+            <div class="level">99</div>
+            <div class="level">100</div>
+         </div>
+      </div>
+      <button id="back-btn"></button>
+      <div id="trivia-container">
+         <div id="question-container">
+            <div id="question"></div>
+         </div>
+         <div id="multiple-answers" class="answers">
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+         </div>
+         <div id="boolean-answers" class="answers">
+            <button>True</button>
+            <button>False</button>
+         </div>
+      </div>
+      <div id="game-btns">
+         <button id="help-btn"></button>
+         <button id="settings-btn"></button>
+      </div>
+   </main>
+   <script src="js/app.js" type="module"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/vivus/0.4.6/vivus.min.js"
+      integrity="sha512-oUUeA7VTcWBqUJD/VYCBB4VeIE0g1pg5aRMiSUOMGnNNeCLRS39OlkcyyeJ0hYx2h3zxmIWhyKiUXKkfZ5Wryg=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+
+</html>
