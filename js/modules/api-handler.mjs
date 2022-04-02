@@ -36,7 +36,6 @@ export const apiHandler = (() => {
       const categoryIndex = categories[category];
       if (!categoryIndex) return;
       const categoryEndpoint = `${endpoint}&category=${categoryIndex}`;
-      console.log(categoryEndpoint);
       const data = await apiCall(categoryEndpoint);
       return data.results;
    };
