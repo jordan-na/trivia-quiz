@@ -37,7 +37,7 @@ export const triviaGame = (() => {
          game = new TriviaGame(data.questions);
          uiController.showGame(game.getCurrentQuestion().type);
       }
-      loadQuestionData(game.currentQuestion);
+      loadQuestionData(game.getCurrentQuestion());
    };
 
    const loadQuestionData = (data) => {
@@ -47,25 +47,33 @@ export const triviaGame = (() => {
          utils.shuffleArr(answers);
          for(let i = 0; i < multipleAnswers.length; i++) {
             multipleAnswers[i].innerHTML = utils.wrapSpChars(answers[i]);
-            if(data.correct_answer === answers[i]) multipleAnswers[i].winner = true;
+            if(data.correct_answer === answers[i]) multipleAnswers[i].correct = true;
          }
       } else if (data.type === "boolean") {
             for(let i = 0; i < booleanAnswers.length; i++) {
-               if(booleanAnswers[i].innerHTML === data.correct_answer) booleanAnswers[i].winner = true;
+               if(booleanAnswers[i].innerHTML === data.correct_answer) booleanAnswers[i].correct = true;
             }
       }
    };
 
    const answer = (evt) => {
       const answer = evt.currentTarget;
-      if(answer.winner) game.increaseScore();
+      if(answer.correct) {
+         game.increaseScore();
+         uiController.setScore(game.getScore());
+      }
       uiController.highlightAnswers();
+      setTimeout(nextQuestion, 750);
    };
 
    const nextQuestion = () => {
       game.nextQuestion();
-      uiController.showNextQuestion();
-      loadQuestionData(game.getCurrentQuestion());
+      if(!game.isLastQuestion()) {
+         uiController.showNextQuestion(game.getCurrentQuestion().type);
+         setTimeout(() => loadQuestionData(game.getCurrentQuestion()), 350);
+      } else {
+         console.log("last question");
+      }
    }
 
    const setMode = (mode) => {
@@ -81,27 +89,40 @@ export const triviaGame = (() => {
 })();
 
 class TriviaGame {
+   #questions;
+   #questionIndex;
+   #currentQuestion;
+   #score;
+
    constructor(data) {
-      this.questions = data;
-      this.questionIndex = 0;
-      this.currentQuestion = this.questions[this.questionIndex];
-      this.score = 0;
+      this.#questions = data;
+      this.#questionIndex = 0;
+      this.#currentQuestion = this.#questions[this.#questionIndex];
+      this.#score = 0;
    }
 
    checkAnswer(answer) {
-      return answer === this.currentQuestion.answer;
+      return answer === this.#currentQuestion.answer;
    }
 
    getCurrentQuestion() {
-      return this.currentQuestion;
+      return this.#currentQuestion;
    }
 
    nextQuestion() {
-      this.currentQuestion = this.questions[++this.questionIndex];
+      this.#currentQuestion = this.#questions[++this.#questionIndex];
+   }
+
+   isLastQuestion() {
+      return this.#questionIndex === this.#questions.length;
    }
 
    increaseScore() {
-      this.score++;
+      this.#score++;
+   }
+
+   getScore() {
+      return this.#score;
    }
 }
 
