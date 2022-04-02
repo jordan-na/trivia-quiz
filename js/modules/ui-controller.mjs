@@ -82,8 +82,11 @@ export const uiController = (() => {
          document.querySelector("#multiple-answers").classList.remove("show");
          document.querySelector("#boolean-answers").classList.remove("show");
          for (const btn of document.querySelectorAll(".answers button")) {
-            btn.winner = false;
+            btn.correct = false;
+            btn.classList.remove("correct");
+            btn.classList.remove("wrong");
          }
+         setScore(0);
       }
       document.querySelector("#back-btn").classList.remove("show");
       await wait(250);
@@ -110,12 +113,39 @@ export const uiController = (() => {
    };
 
    const showCountdownGame = (type) => {
-      console.log("show count down game");
+      showGame(type);
    };
 
    const highlightAnswers = () => {
-      
-   }
+      for (const btn of document.querySelectorAll(".answers button")) {
+         if (btn.correct) btn.classList.add("correct");
+         if (!btn.correct) btn.classList.add("wrong");
+      }
+   };
+
+   const showNextQuestion = async (type) => {
+      document.querySelector("#question-container").classList.add("hide");
+      document.querySelector("#multiple-answers").classList.add("hide");
+      document.querySelector("#boolean-answers").classList.add("hide");
+      for (const btn of document.querySelectorAll(".answers button")) {
+         btn.correct = false;
+         btn.classList.remove("correct");
+         btn.classList.remove("wrong");
+      }
+      await wait(300);
+      document.querySelector("#multiple-answers").classList.remove("hide");
+      document.querySelector("#multiple-answers").classList.remove("show");
+      document.querySelector("#boolean-answers").classList.remove("hide");
+      document.querySelector("#boolean-answers").classList.remove("show");
+      await wait(50);
+      document.querySelector("#question-container").classList.remove("hide");
+      if (type === "multiple") document.querySelector("#multiple-answers").classList.add("show");
+      else if (type === "boolean") document.querySelector("#boolean-answers").classList.add("show");
+   };
+
+   const setScore = (score) => {
+      document.querySelector("#score").innerText = `${score}`;
+   };
 
    const wait = (time) => {
       return new Promise((resolve, reject) => {
@@ -138,5 +168,8 @@ export const uiController = (() => {
       showAdventureLevels: showAdventureLevels,
       showGame: showGame,
       showCountdownGame: showCountdownGame,
+      highlightAnswers: highlightAnswers,
+      showNextQuestion: showNextQuestion,
+      setScore: setScore
    };
 })();
