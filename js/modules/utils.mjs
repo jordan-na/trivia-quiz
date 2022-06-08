@@ -29,7 +29,7 @@ export const utils = (() => {
       text = decodeEntities(text);
       let newText = "";
       for (let i = 0; i < text.length; i++) {
-         if (`""''!-++():/#$%°`.indexOf(text.charAt(i)) !== -1) {
+         if (`""''!-+():/#$%°&*=[]^`.indexOf(text.charAt(i)) !== -1) {
             newText += `<span class="sp-ch">${text.charAt(i)}</span>`;
          } else {
             newText += text.charAt(i);

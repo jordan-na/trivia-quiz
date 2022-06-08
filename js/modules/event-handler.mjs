@@ -1,5 +1,5 @@
 import { uiController } from "./ui-controller.mjs";
-import { triviaGame } from "./trivia-game.mjs";
+import { gameController } from "./game-controller.mjs";
 
 export const eventHandler = (() => {
    const setupShowPlayBtnListener = () => {
@@ -28,6 +28,22 @@ export const eventHandler = (() => {
       playBtn.addEventListener("mouseleave", uiController.togglePlayBtnHover);
    };
 
+   const setupHelpBtnListeners = () => {
+      document.querySelector("#help-btn").addEventListener("click", uiController.toggleHelp);
+      document.querySelector("#help-close").addEventListener("click", uiController.toggleHelp);
+   };
+
+   const setupHelpNavBtns = () => {
+      for (const btn of document.querySelectorAll(".nav-btn")) {
+         btn.addEventListener("click", uiController.switchModeDescription);
+      }
+   };
+
+   const setupSettingsBtnListeners = () => {
+      document.querySelector("#settings-btn").addEventListener("click", uiController.toggleSettings);
+      document.querySelector("#settings-close").addEventListener("click", uiController.toggleSettings);
+   };
+
    const setupShowGameModesListener = () => {
       document.querySelector("#play-btn").addEventListener("click", uiController.showGameModes);
    };
@@ -35,15 +51,15 @@ export const eventHandler = (() => {
    const setupStartGameModeListeners = () => {
       document.querySelector("#classic").addEventListener("click", () => {
          uiController.showCategorySelector();
-         triviaGame.setMode("classic");
+         gameController.setMode("classic");
       });
       document.querySelector("#countdown").addEventListener("click", () => {
          uiController.showCategorySelector();
-         triviaGame.setMode("countdown");
+         gameController.setMode("countdown");
       });
       document.querySelector("#adventure").addEventListener("click", () => {
          uiController.showAdventureLevels();
-         triviaGame.setMode("adventure");
+         gameController.setMode("adventure");
       });
    };
 
@@ -58,16 +74,22 @@ export const eventHandler = (() => {
    };
 
    const setupStartGameListeners = () => {
-      document.querySelector("#check-mark-btn").addEventListener("click", triviaGame.startGame);
+      document.querySelector("#check-mark-btn").addEventListener("click", gameController.startGame);
+      document.querySelector("#level-play-btn").addEventListener("click", () => {
+         gameController.startGame(gameController.getCurrentLevelIndex())
+      });
+   };
+
+   const setupLevelBtnListeners = () => {
       for (const btn of document.querySelectorAll(".level")) {
-         const levelNumber = parseInt(btn.textContent);
-         btn.addEventListener("click", () => triviaGame.startGame(levelNumber));
+         const levelNumber = parseInt(btn.textContent) - 1;
+         btn.addEventListener("click", () => uiController.showLevelDetails(gameController.getLevelData(levelNumber)));
       }
    };
 
    const setupAnswerListeners = () => {
-      for(const btn of document.querySelectorAll(".answers button")) {
-         btn.addEventListener("click", triviaGame.answer);
+      for (const btn of document.querySelectorAll(".answers button")) {
+         btn.addEventListener("click", gameController.answer);
       }
    };
 
@@ -75,17 +97,31 @@ export const eventHandler = (() => {
       document.querySelector("#back-btn").addEventListener("click", uiController.goBack);
    };
 
+   const setupQuitBtnListener = () => {
+      document.querySelector("#quit-btn").addEventListener("click", uiController.goBack);
+   };
+
+   const setupPlayAgainListener = () => {
+      document.querySelector("#play-again-btn").addEventListener("click", uiController.playAgain);
+   };
+
    const setupEventListeners = () => {
       setupShowPlayBtnListener();
       setupHomeBtnListener();
       setupPlayBtnListeners();
+      setupHelpBtnListeners();
+      setupHelpNavBtns();
+      setupSettingsBtnListeners();
       setupShowGameBtnsListener();
       setupShowGameModesListener();
       setupStartGameModeListeners();
       setupCategorySelectorListeners();
       setupStartGameListeners();
-      setupBackBtnListener();
+      setupLevelBtnListeners();
       setupAnswerListeners();
+      setupBackBtnListener();
+      setupQuitBtnListener();
+      setupPlayAgainListener();
    };
 
    return {

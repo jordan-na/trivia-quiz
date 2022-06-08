@@ -177,6 +177,48 @@
             <div class="level">100</div>
          </div>
       </div>
+      <div id="level-details">
+         <h2 id="level-header">Level</h2>
+         <div>
+            <div id="difficulty-container">
+               Difficulty<span class="sp-ch">:</span>
+               <span id="difficulty">
+                  <img src="./assets/imgs/star.svg" alt="star">
+                  <img src="./assets/imgs/star.svg" alt="star">
+                  <img src="./assets/imgs/star.svg" alt="star">
+               </span>
+            </div>
+            <div>Passing Score<span class="sp-ch">:</span> <span id="passing-score"></span></div>
+         </div>
+         <button id="level-play-btn">
+            <svg width="48.735336mm" height="49.116589mm" viewBox="0 0 48.735337 49.116589" version="1.1" id="svg5"
+               inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)" sodipodi:docname="play-icon.svg"
+               xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+               xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg"
+               xmlns:svg="http://www.w3.org/2000/svg">
+               <sodipodi:namedview id="namedview7" pagecolor="#333333" bordercolor="#666666" borderopacity="1.0"
+                  inkscape:pageshadow="2" inkscape:pageopacity="0" inkscape:pagecheckerboard="0" inkscape:document-units="mm"
+                  showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0"
+                  inkscape:showpageshadow="false" inkscape:zoom="2" inkscape:cx="67.75" inkscape:cy="72"
+                  inkscape:window-width="2880" inkscape:window-height="1526" inkscape:window-x="2869" inkscape:window-y="4"
+                  inkscape:window-maximized="1" inkscape:current-layer="layer2" />
+               <defs id="defs2" />
+               <g inkscape:groupmode="layer" id="layer2" inkscape:label="Contents" transform="translate(-54.084427,-30.153818)">
+                  <ellipse
+                     style="fill:none;stroke:#000000;stroke-width:3.175;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                     id="path843" cx="78.452095" cy="54.712112" rx="22.780169" ry="22.970795" />
+                  <path sodipodi:type="star"
+                     style="fill:none;stroke:#000000;stroke-width:10.84325409;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                     id="path999" inkscape:flatsided="false" sodipodi:sides="3" sodipodi:cx="139.05411" sodipodi:cy="304.04578"
+                     sodipodi:r1="50.910492" sodipodi:r2="25.455248" sodipodi:arg1="2.0943951" sodipodi:arg2="3.1415927"
+                     inkscape:rounded="0" inkscape:randomized="0"
+                     d="m 113.59886,348.13556 0,-44.08978 0,-44.08978 38.18287,22.04489 38.18287,22.04489 -38.18287,22.04489 z"
+                     transform="matrix(0.29280878,0,0,0.29280878,36.654967,-34.31516)" inkscape:transform-center-x="-3.7267584"
+                     inkscape:transform-center-y="-1.8365541e-06" />
+               </g>
+            </svg>
+         </button>
+      </div>
       <button id="back-btn"></button>
       <div id="trivia-container">
          <div id="question-container">
@@ -193,10 +235,84 @@
             <button>False</button>
          </div>
          <h2 id="score">0</h2>
+         <div id="timer-bar">
+            <span id="time">60</span><span>s</span>
+            <div id="bar"></div>
+            <span id="time-added"><span class="sp-ch">+</span>5</span>
+         </div>
+      </div>
+      <div id="game-finish">
+         <div class="game-stats classic">
+            <h2>Your Score Was</h2>
+            <h2 class="score">0</h2>
+         </div>
+         <div class="game-stats countdown">
+            <div>Time Elapsed<span class="sp-ch">:</span> <span id="time-elapsed"></span></div>
+            <div>Time Added<span class="sp-ch">:</span> <span id="total-time-added"></span></div>
+            <div>Questions Wrong<span class="sp-ch">:</span> <span id="questions-wrong"></span></div>
+            <div>Final Score<span class="sp-ch">:</span> <span id="final-score"></span></div>
+         </div>
+         <div class="game-stats adventure">
+            <h2 id="level-result-mssg"></h2>
+            <h2>Your Score Is<span class="sp-ch">:</span> <span class="score">0</span></h2>
+            <h2 id="num-questions-to-pass-mssg"></h2>
+         </div>
+         <button id="quit-btn">Quit</button>
+         <button id="play-again-btn">Play Again</button>
+         <button id="next-level-btn">Next Level</button>
+         <button id="try-again-btn">Try Again</button>
       </div>
       <div id="game-btns">
          <button id="help-btn"></button>
          <button id="settings-btn"></button>
+      </div>
+      <div id="dark-bg"></div>
+      <div id="help-container" class="card-comp">
+         <h2>How to Play</h2>
+         <button id="help-close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+               <path fill="#ccc" fill-rule="evenodd"
+                  d="M16.97 0l2.122 2.121-7.425 7.425 7.425 7.425-2.121 2.12-7.425-7.424-7.425 7.425L0 16.97l7.425-7.425L0 2.121 2.121 0l7.425 7.425L16.971 0z" />
+            </svg>
+         </button>
+         <div id="mode-descriptions">
+            <div class="mode-description">
+               <h3>Classic</h3>
+               <p>Answer 10 trivia questions from any category of your choice<span class="sp-ch">!</span> Perfect for a
+                  casual game to test your trivia knowledge stress free.</p>
+            </div>
+            <div class="mode-description">
+               <h3>Countdown</h3>
+               <p>You have 60 seconds to answer as many questions as possible. Questions answered correctly will add 5
+                  seconds to the time remaining. Incorrect answers will do nothing. Tick Tock <span
+                     class="sp-ch">!!!</span></p>
+            </div>
+            <div class="mode-description">
+               <h3>Adventure</h3>
+               <p>Go on a quiz adventure and get through 100 levels of trivia fun. Levels vary in category and
+                  diffuculty. The further you go, the more difficult the questions get <span class="sp-ch">!</span></p>
+            </div>
+         </div>
+         <ul id="nav-circles">
+            <li>
+               <button class="nav-btn selected"></button>
+            </li>
+            <li>
+               <button class="nav-btn"></button>
+            </li>
+            <li>
+               <button class="nav-btn"></button>
+            </li>
+         </ul>
+      </div>
+      <div id="settings-container" class="card-comp">
+         <h2>Settings</h2>
+         <button id="settings-close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+               <path fill="#ccc" fill-rule="evenodd"
+                  d="M16.97 0l2.122 2.121-7.425 7.425 7.425 7.425-2.121 2.12-7.425-7.424-7.425 7.425L0 16.97l7.425-7.425L0 2.121 2.121 0l7.425 7.425L16.971 0z" />
+            </svg>
+         </button>
       </div>
    </main>
    <script src="js/app.js" type="module"></script>

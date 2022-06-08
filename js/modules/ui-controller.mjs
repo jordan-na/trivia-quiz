@@ -1,27 +1,57 @@
+import { gameController } from "./game-controller.mjs";
+import { TriviaGameLevel } from "./TriviaGameLevel.mjs";
+
 export const uiController = (() => {
    let played = false;
    let playBtnHover = false;
+   let playingLevel = false;
 
-   const showLoadingTransitionBtn = () => {
-      document.querySelector("#loading-bar").classList.add("hide");
-      document.querySelector("#loading-icon").classList.add("hide");
-      document.querySelector("#ripple").classList.remove("hide");
-   };
-
-   const showGameBackground = () => {
-      document.querySelector("#ripple").classList.add("hide");
-      document.querySelector("#game-container").classList.add("expand");
-   };
+   const mainMenu = document.querySelector("#main-menu");
+   const playBtn = document.querySelector("#play-btn");
+   const helpBtn = document.querySelector("#help-btn");
+   const settingsBtn = document.querySelector("#settings-btn");
+   const helpContainer = document.querySelector("#help-container");
+   const helpNavBtns = document.querySelectorAll(".nav-btn");
+   const modeDescriptions = document.querySelector("#mode-descriptions");
+   const settingsContainer = document.querySelector("#settings-container");
+   const darkBg = document.querySelector("#dark-bg");
+   const gameModes = document.querySelector("#game-modes");
+   const categoriesContainer = document.querySelector("#categories-container");
+   const categorySelectorContainer = document.querySelector("#category-selector-container");
+   const categorySelector = document.querySelector("#category-selector");
+   const checkMarkBtn = document.querySelector("#check-mark-btn");
+   const categories = document.querySelector("#categories");
+   const backBtn = document.querySelector("#back-btn");
+   const triviaContainer = document.querySelector("#trivia-container");
+   const questionContainer = document.querySelector("#question-container");
+   const multipleAnswers = document.querySelector("#multiple-answers");
+   const booleanAnswers = document.querySelector("#boolean-answers");
+   const score = document.querySelector("#score");
+   const timerBar = document.querySelector("#timer-bar");
+   const time = document.querySelector("#time");
+   const timeAdded = document.querySelector("#time-added");
+   const answerBtns = document.querySelectorAll(".answers button");
+   const levelsContainer = document.querySelector("#levels-container");
+   const levelGrid = document.querySelector("#level-grid");
+   const levelDetails = document.querySelector("#level-details");
+   const levelHeader = document.querySelector("#level-header");
+   const difficulty = document.querySelector("#difficulty");
+   const passingScore = document.querySelector("#passing-score");
+   const levelPlayBtn = document.querySelector("#level-play-btn");
+   const gameFinish = document.querySelector("#game-finish");
+   const scores = document.querySelectorAll(".score");
+   const levelResultMssg = document.querySelector("#level-result-mssg");
+   const numQuestionsToPassMssg = document.querySelector("#num-questions-to-pass-mssg");
 
    const showPlayBtn = async () => {
       if (!played) {
          played = true;
-         document.querySelector("#main-menu").classList.add("grow");
+         mainMenu.classList.add("grow");
          await wait(350);
-         document.querySelector("#play-btn").classList.add("show");
+         playBtn.classList.add("show");
          new Vivus("play-btn-svg-vivus", { duration: 50, delay: 20 }, () => {
-            document.querySelector("#play-btn-svg").classList.add("show");
-            document.querySelector("#play-btn-svg-vivus").classList.add("remove");
+            playBtn.children[1].classList.add("show");
+            playBtn.children[0].classList.add("remove");
          });
       }
    };
@@ -35,116 +65,227 @@ export const uiController = (() => {
       playBtnHover = !playBtnHover;
    };
 
+   const toggleHelp = () => {
+      darkBg.classList.toggle("show");
+      helpContainer.classList.toggle("show");
+      setTimeout(() => {
+         for (const btn of helpNavBtns) btn.classList.remove("selected");
+         helpNavBtns[0].classList.add("selected");
+         modeDescriptions.style.transform = `translateX(0%)`;
+      }, 300);
+   };
+
+   const switchModeDescription = (evt) => {
+      for (const btn of helpNavBtns) btn.classList.remove("selected");
+      evt.currentTarget.classList.add("selected");
+      const index = [...helpNavBtns].indexOf(evt.currentTarget);
+      const padding = window.getComputedStyle(modeDescriptions.parentElement, null).getPropertyValue("padding");
+      modeDescriptions.style.transform = `translateX(calc(-${index * 100}% - ${padding} * ${index}))`;
+   };
+
+   const toggleSettings = () => {
+      darkBg.classList.toggle("show");
+      settingsContainer.classList.toggle("show");
+   };
+
    const goBackToMenu = async () => {
-      document.querySelector("#game-modes").classList.remove("show");
+      gameModes.classList.remove("show");
       await wait(250);
-      document.querySelector("#main-menu").classList.remove("hide");
+      mainMenu.classList.remove("hide");
    };
 
    const showGameBtns = () => {
-      document.querySelector("#help-btn").classList.add("show");
-      document.querySelector("#settings-btn").classList.add("show");
+      helpBtn.classList.add("show");
+      settingsBtn.classList.add("show");
    };
 
    const showGameModes = async () => {
-      document.querySelector("#main-menu").classList.add("hide");
+      mainMenu.classList.add("hide");
       await wait(250);
-      document.querySelector("#game-modes").classList.add("show");
+      gameModes.classList.add("show");
    };
 
    const showCategorySelector = async () => {
-      document.querySelector("#game-modes").classList.add("hide");
-      document.querySelector("#game-modes").classList.remove("show");
+      gameModes.classList.add("hide");
+      gameModes.classList.remove("show");
       await wait(250);
-      document.querySelector("#categories-container").classList.add("show");
-      document.querySelector("#back-btn").classList.add("show");
+      categoriesContainer.classList.add("show");
+      backBtn.classList.add("show");
    };
 
    const toggleCategories = async () => {
-      document.querySelector("#category-selector-container").classList.toggle("open");
-      document.querySelector("#check-mark-btn").classList.toggle("hide");
+      categorySelectorContainer.classList.toggle("open");
+      checkMarkBtn.classList.toggle("hide");
       await wait(250);
-      document.querySelector("#categories").scroll(0, 0);
+      categories.scroll(0, 0);
    };
 
    const changeCategoryText = (li) => {
       const text = li.innerText;
-      document.querySelector("#category-selector").childNodes[2].nodeValue = text;
+      categorySelector.childNodes[2].nodeValue = text;
    };
 
    const goBack = async () => {
-      if (document.querySelector("#categories-container").classList.contains("show")) {
-         document.querySelector("#categories-container").classList.remove("show");
-      } else if (document.querySelector("#levels-container").classList.contains("show")) {
-         document.querySelector("#levels-container").classList.remove("show");
-      } else if (document.querySelector("#trivia-container").classList.contains("show")) {
-         document.querySelector("#trivia-container").classList.remove("show");
-         document.querySelector("#multiple-answers").classList.remove("show");
-         document.querySelector("#boolean-answers").classList.remove("show");
-         for (const btn of document.querySelectorAll(".answers button")) {
-            btn.correct = false;
-            btn.classList.remove("correct");
-            btn.classList.remove("wrong");
-         }
-         setScore(0);
-      }
-      document.querySelector("#back-btn").classList.remove("show");
-      await wait(250);
-      document.querySelector("#level-grid").scroll(0, 0);
-      document.querySelector("#game-modes").classList.remove("hide");
-      document.querySelector("#game-modes").classList.add("show");
-   };
-
-   const showAdventureLevels = async () => {
-      document.querySelector("#game-modes").classList.add("hide");
-      document.querySelector("#game-modes").classList.remove("show");
-      await wait(250);
-      document.querySelector("#levels-container").classList.add("show");
-      document.querySelector("#back-btn").classList.add("show");
-   };
-
-   const showGame = async (type) => {
-      document.querySelector("#categories-container").classList.remove("show");
-      document.querySelector("#levels-container").classList.remove("show");
-      await wait(250);
-      document.querySelector("#trivia-container").classList.add("show");
-      if (type === "multiple") document.querySelector("#multiple-answers").classList.add("show");
-      else if (type === "boolean") document.querySelector("#boolean-answers").classList.add("show");
-   };
-
-   const showCountdownGame = (type) => {
-      showGame(type);
-   };
-
-   const highlightAnswers = () => {
-      for (const btn of document.querySelectorAll(".answers button")) {
-         if (btn.correct) btn.classList.add("correct");
-         if (!btn.correct) btn.classList.add("wrong");
-      }
-   };
-
-   const showNextQuestion = async (type) => {
-      document.querySelector("#question-container").classList.add("hide");
-      document.querySelector("#multiple-answers").classList.add("hide");
-      document.querySelector("#boolean-answers").classList.add("hide");
-      for (const btn of document.querySelectorAll(".answers button")) {
+      checkMarkBtn.classList.remove("hide");
+      categoriesContainer.classList.remove("show");
+      levelsContainer.classList.remove("show");
+      triviaContainer.classList.remove("show");
+      multipleAnswers.classList.remove("show");
+      booleanAnswers.classList.remove("show");
+      timerBar.classList.remove("show");
+      gameFinish.classList.remove("show");
+      setTimeout(() => gameFinish.className = '', 300);
+      for (const btn of answerBtns) {
          btn.correct = false;
          btn.classList.remove("correct");
          btn.classList.remove("wrong");
       }
-      await wait(300);
-      document.querySelector("#multiple-answers").classList.remove("hide");
-      document.querySelector("#multiple-answers").classList.remove("show");
-      document.querySelector("#boolean-answers").classList.remove("hide");
-      document.querySelector("#boolean-answers").classList.remove("show");
-      await wait(50);
-      document.querySelector("#question-container").classList.remove("hide");
-      if (type === "multiple") document.querySelector("#multiple-answers").classList.add("show");
-      else if (type === "boolean") document.querySelector("#boolean-answers").classList.add("show");
+      setTimeout(() => setScore(0), 300);
+      setTime(gameController.getTimeLimit());
+      gameController.stopTimer();
+      document.documentElement.style.setProperty("--bar-width", "100%");
+      if (playingLevel) {
+         await wait(350);
+         levelsContainer.classList.add("show");
+         playingLevel = false;
+      } else if (levelDetails.classList.contains("show")) {
+         levelDetails.classList.remove("show");
+         await wait(350);
+         levelsContainer.classList.add("show");
+      } else {
+         backBtn.classList.remove("show");
+         await wait(350);
+         levelGrid.scroll(0, 0);
+         gameModes.classList.remove("hide");
+         gameModes.classList.add("show");
+      }
    };
 
-   const setScore = (score) => {
-      document.querySelector("#score").innerText = `${score}`;
+   const showAdventureLevels = async () => {
+      gameModes.classList.add("hide");
+      gameModes.classList.remove("show");
+      await wait(250);
+      levelsContainer.classList.add("show");
+      backBtn.classList.add("show");
+   };
+
+   const showLevelDetails = (level) => {
+      console.log(level);
+      levelsContainer.classList.remove("show");
+      levelHeader.innerText = `Level ${level.levelNumber}`;
+      difficulty.classList.add(level.difficulty);
+      passingScore.innerText = `${TriviaGameLevel.getPassingScoreByDifficulty(level.difficulty)}`;
+      setTimeout(() => levelDetails.classList.add("show"), 350);
+   };
+
+   const showGame = async (type, isLevel) => {
+      if (isLevel) playingLevel = true;
+      categoriesContainer.classList.remove("show");
+      levelDetails.classList.remove("show");
+      await wait(250);
+      levelGrid.scroll(0, 0);
+      triviaContainer.classList.add("show");
+      if (type === "multiple") multipleAnswers.classList.add("show");
+      else if (type === "boolean") booleanAnswers.classList.add("show");
+      for (const btn of answerBtns) btn.classList.remove("no-pointer-events");
+   };
+
+   const showCountdownGame = (type) => {
+      showGame(type);
+      return new Promise((resolve, reject) => {
+         setTimeout(() => {
+            timerBar.classList.add("show");
+            resolve();
+         }, 200);
+      });
+   };
+
+   const highlightAnswers = () => {
+      for (const btn of answerBtns) {
+         if (btn.correct) btn.classList.add("correct");
+         if (!btn.correct) btn.classList.add("wrong");
+         btn.classList.add("no-pointer-events");
+      }
+   };
+
+   const showNextQuestion = async (type) => {
+      questionContainer.classList.add("hide");
+      multipleAnswers.classList.add("hide");
+      booleanAnswers.classList.add("hide");
+      await wait(300);
+      for (const btn of answerBtns) {
+         btn.correct = false;
+         btn.classList.remove("correct");
+         btn.classList.remove("wrong");
+      }
+      multipleAnswers.classList.remove("hide");
+      multipleAnswers.classList.remove("show");
+      booleanAnswers.classList.remove("hide");
+      booleanAnswers.classList.remove("show");
+      await wait(50);
+      questionContainer.classList.remove("hide");
+      if (type === "multiple") multipleAnswers.classList.add("show");
+      else if (type === "boolean") booleanAnswers.classList.add("show");
+      await wait(600);
+      for (const btn of answerBtns) btn.classList.remove("no-pointer-events");
+   };
+
+   const setScore = (s) => {
+      score.innerText = `${s}`;
+      scores.forEach(sc => sc.innerText = `${s}`);
+   };
+
+   const setTime = (t) => {
+      time.innerText = `${t}`;
+   };
+
+   const updateTimerBar = (time, totalTime) => {
+      const percentage = `${(time / totalTime) * 100}%`;
+      document.documentElement.style.setProperty("--bar-width", percentage);
+   };
+
+   const addTime = async (time) => {
+      timeAdded.childNodes[1].nodeValue = `${time}`;
+      timeAdded.classList.add("show");
+      await wait(1500);
+      timeAdded.classList.remove("show");
+   };
+
+   const showGameFinishScreen = (mode, adventureGame) => {
+      triviaContainer.classList.remove("show");
+      multipleAnswers.classList.remove("show");
+      booleanAnswers.classList.remove("show");
+      for (const btn of answerBtns) {
+         btn.correct = false;
+         btn.classList.remove("correct");
+         btn.classList.remove("wrong");
+      }
+      gameFinish.classList.add("show");
+      gameFinish.classList.add(mode);
+      if(adventureGame) {
+         if(adventureGame.passed()) {
+            gameFinish.classList.add("passed");
+            levelResultMssg.innerText = "Level Passed";
+         }
+         else {
+            gameFinish.classList.add("failed");
+            levelResultMssg.innerText = "Level Failed";
+            numQuestionsToPassMssg.innerText = `You need ${adventureGame.getPassingScore()} right answers to pass`;
+         }
+
+      }
+   };
+
+   const playAgain = () => {
+      gameFinish.classList.remove("show");
+      checkMarkBtn.classList.remove("hide");
+      document.documentElement.style.setProperty("--bar-width", "100%");
+      setTime(gameController.getTimeLimit());
+      setTimeout(() => {
+         categoriesContainer.classList.remove("hide");
+         categoriesContainer.classList.add("show");
+         setScore(0);
+      }, 300);
    };
 
    const wait = (time) => {
@@ -154,10 +295,11 @@ export const uiController = (() => {
    };
 
    return {
-      showLoadingTransitionBtn: showLoadingTransitionBtn,
-      showGameBackground: showGameBackground,
       showPlayBtn: showPlayBtn,
       togglePlayBtnHover: togglePlayBtnHover,
+      toggleHelp: toggleHelp,
+      switchModeDescription: switchModeDescription,
+      toggleSettings: toggleSettings,
       goBackToMenu: goBackToMenu,
       showGameBtns: showGameBtns,
       showGameModes: showGameModes,
@@ -166,10 +308,16 @@ export const uiController = (() => {
       changeCategoryText: changeCategoryText,
       goBack: goBack,
       showAdventureLevels: showAdventureLevels,
+      showLevelDetails: showLevelDetails,
       showGame: showGame,
       showCountdownGame: showCountdownGame,
       highlightAnswers: highlightAnswers,
       showNextQuestion: showNextQuestion,
-      setScore: setScore
+      setScore: setScore,
+      setTime: setTime,
+      addTime: addTime,
+      updateTimerBar: updateTimerBar,
+      showGameFinishScreen: showGameFinishScreen,
+      playAgain: playAgain
    };
 })();
