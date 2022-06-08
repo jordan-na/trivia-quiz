@@ -37,7 +37,7 @@ export const uiController = (() => {
    const levelHeader = document.querySelector("#level-header");
    const difficulty = document.querySelector("#difficulty");
    const passingScore = document.querySelector("#passing-score");
-   const levelPlayBtn = document.querySelector("#level-play-btn");
+   const highScore = document.querySelector("#high-score");
    const gameFinish = document.querySelector("#game-finish");
    const scores = document.querySelectorAll(".score");
    const levelResultMssg = document.querySelector("#level-result-mssg");
@@ -134,7 +134,7 @@ export const uiController = (() => {
       booleanAnswers.classList.remove("show");
       timerBar.classList.remove("show");
       gameFinish.classList.remove("show");
-      setTimeout(() => gameFinish.className = '', 300);
+      setTimeout(() => (gameFinish.className = ""), 300);
       for (const btn of answerBtns) {
          btn.correct = false;
          btn.classList.remove("correct");
@@ -170,11 +170,13 @@ export const uiController = (() => {
    };
 
    const showLevelDetails = (level) => {
-      console.log(level);
       levelsContainer.classList.remove("show");
       levelHeader.innerText = `Level ${level.levelNumber}`;
       difficulty.classList.add(level.difficulty);
       passingScore.innerText = `${TriviaGameLevel.getPassingScoreByDifficulty(level.difficulty)}`;
+      highScore.innerText = localStorage.getItem(`level-${level.levelNumber}-high-score`)
+         ? localStorage.getItem(`level-${level.levelNumber}-high-score`)
+         : 0;
       setTimeout(() => levelDetails.classList.add("show"), 350);
    };
 
@@ -232,7 +234,7 @@ export const uiController = (() => {
 
    const setScore = (s) => {
       score.innerText = `${s}`;
-      scores.forEach(sc => sc.innerText = `${s}`);
+      scores.forEach((sc) => (sc.innerText = `${s}`));
    };
 
    const setTime = (t) => {
@@ -262,17 +264,15 @@ export const uiController = (() => {
       }
       gameFinish.classList.add("show");
       gameFinish.classList.add(mode);
-      if(adventureGame) {
-         if(adventureGame.passed()) {
+      if (adventureGame) {
+         if (adventureGame.passed()) {
             gameFinish.classList.add("passed");
             levelResultMssg.innerText = "Level Passed";
-         }
-         else {
+         } else {
             gameFinish.classList.add("failed");
             levelResultMssg.innerText = "Level Failed";
             numQuestionsToPassMssg.innerText = `You need ${adventureGame.getPassingScore()} right answers to pass`;
          }
-
       }
    };
 
@@ -318,6 +318,6 @@ export const uiController = (() => {
       addTime: addTime,
       updateTimerBar: updateTimerBar,
       showGameFinishScreen: showGameFinishScreen,
-      playAgain: playAgain
+      playAgain: playAgain,
    };
 })();

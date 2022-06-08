@@ -10,7 +10,7 @@ export const gameController = (() => {
    let gameMode;
    let levels;
    let timeLimit = 60;
-   let highestLevelOpened = localStorage.getItem("current-level") ? localStorage.getItem("current-level") : 1;
+   let highestLevelOpened = localStorage.getItem("highest-level-opened") ? localStorage.getItem("highest-level-opened") : 1;
    let currentLevel = 1;
 
    const multipleAnswers = document.querySelectorAll("#multiple-answers button");
@@ -101,10 +101,14 @@ export const gameController = (() => {
          } else {
             setTimeout(() => {
                if(gameMode === "adventure") {
+                  const prevHighScore = localStorage.getItem(`level-${currentLevel}-high-score`);
+                  if(!prevHighScore || game.getScore() > prevHighScore) {
+                     localStorage.setItem(`level-${currentLevel}-high-score`, game.getScore());
+                  }
                   uiController.showGameFinishScreen(gameMode, game);
                   if(game.passed()) {
-                     levelSquares[currentLevel++].classList.add("open");
-                     localStorage.setItem("current-level", currentLevel);
+                     levelSquares[highestLevelOpened++].classList.add("open");
+                     localStorage.setItem("highest-level-opened", highestLevelOpened);
                   }
                } else {
                   uiController.showGameFinishScreen(gameMode);

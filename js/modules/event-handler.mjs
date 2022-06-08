@@ -83,7 +83,10 @@ export const eventHandler = (() => {
    const setupLevelBtnListeners = () => {
       for (const btn of document.querySelectorAll(".level")) {
          const levelNumber = parseInt(btn.textContent) - 1;
-         btn.addEventListener("click", () => uiController.showLevelDetails(gameController.getLevelData(levelNumber)));
+         btn.addEventListener("click", () => {
+            uiController.showLevelDetails(gameController.getLevelData(levelNumber))
+            gameController.setCurrentLevelIndex(parseInt(btn.textContent));
+         })
       }
    };
 

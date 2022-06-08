@@ -1,2 +1,2 @@
-1. Fix go back function to work with level component
+1. Store and show highest score for each level
 2. Add settings component
