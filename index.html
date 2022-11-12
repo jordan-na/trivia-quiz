@@ -10,7 +10,7 @@
 </head>
 
 <body>
-   <main id="game-container">
+   <main id="game-container" class="bg1">
       <div id="main-menu">
          <div id="title-container" class="animate-border change-color">
             <div></div>
@@ -314,6 +314,88 @@
                   d="M16.97 0l2.122 2.121-7.425 7.425 7.425 7.425-2.121 2.12-7.425-7.424-7.425 7.425L0 16.97l7.425-7.425L0 2.121 2.121 0l7.425 7.425L16.971 0z" />
             </svg>
          </button>
+         <div id="settings">
+            <nav id="settings-nav">
+               <button class="selected" id="settings-btn-background">Background</button>
+               <button id="settings-btn-audio">Audio</button>
+            </nav>
+            <div id="settings-controls">
+               <div id="background-settings" class="show">
+                  <button class="bg-btn bg1 selected"></button>
+                  <button class="bg-btn bg2"></button>
+                  <button class="bg-btn bg3"></button>
+                  <button class="bg-btn bg4"></button>
+                  <button class="bg-btn bg5"></button>
+                  <button class="bg-btn bg6"></button>
+                  <button class="bg-btn bg7"></button>
+                  <button class="bg-btn bg8"></button>
+                  <button class="bg-btn bg9"></button>
+                  <button class="bg-btn bg10"></button>
+                  <button class="bg-btn bg11"></button>
+                  <button class="bg-btn bg12"></button>
+                  <button class="bg-btn bg13"></button>
+                  <button class="bg-btn bg14"></button>
+                  <button class="bg-btn bg15"></button>
+                  <button class="bg-btn bg16"></button>
+                  <button class="bg-btn bg17"></button>
+                  <button class="bg-btn bg18"></button>
+                  <button class="bg-btn bg19"></button>
+                  <button class="bg-btn bg20"></button>
+               </div>
+               <div id="audio-settings">
+                  <div class="audio-section">
+                     <div class="audio-type music">
+                        <h2>Music</h2>
+                        <button class="toggle-switch">
+                           <div class="toggle-switch-background"></div>
+                           <div class="circle"></div>
+                        </button>
+                     </div>
+                     <div class="music-select-container">
+                        <h3>Type</h3>
+                        <button class="select">
+                           Peaceful
+                           <img src="./assets/imgs/down-arrow.svg" alt="down arrow">
+                           <ul class="select-list">
+                              <li>
+                                 Peaceful
+                              </li>
+                              <li>
+                                 Intense
+                              </li>
+                              <li>
+                                 Focused
+                              </li>
+                              <li>
+                                 Techno
+                              </li>
+                              <li>
+                                 Safari
+                              </li>
+                           </ul>
+                        </button>
+                     </div>
+                     <div class="volume-container">
+                        <h3>Volume</h3>
+                        <input type="range" id="music-volume">
+                     </div>
+                  </div>
+                  <div class="audio-section">
+                     <div class="audio-type sfx">
+                        <h2>Sfx</h2>
+                        <button class="toggle-switch">
+                           <div class="toggle-switch-background"></div>
+                           <div class="circle"></div>
+                        </button>
+                     </div>
+                     <div class="volume-container">
+                        <h3>Volume</h3>
+                        <input type="range" id="sfx-volume">
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
       </div>
    </main>
    <script src="js/app.js" type="module"></script>

@@ -75,6 +75,16 @@ export const uiController = (() => {
       }, 300);
    };
 
+   const removeHelp = () => {
+         darkBg.classList.remove("show");
+         helpContainer.classList.remove("show");
+         setTimeout(() => {
+            for (const btn of helpNavBtns) btn.classList.remove("selected");
+            helpNavBtns[0].classList.add("selected");
+            modeDescriptions.style.transform = `translateX(0%)`;
+         }, 300);
+   }
+
    const switchModeDescription = (evt) => {
       for (const btn of helpNavBtns) btn.classList.remove("selected");
       evt.currentTarget.classList.add("selected");
@@ -86,6 +96,39 @@ export const uiController = (() => {
    const toggleSettings = () => {
       darkBg.classList.toggle("show");
       settingsContainer.classList.toggle("show");
+   };
+
+   const showBackgroundSettings = () => {
+      document.querySelector("#audio-settings").classList.remove("show");
+      document.querySelector("#settings-btn-audio").classList.remove("selected");
+      document.querySelector("#background-settings").classList.add("show");
+      document.querySelector("#settings-btn-background").classList.add("selected");
+   };
+
+   const showAudioSettings = () => {
+         document.querySelector("#audio-settings").classList.add("show");
+         document.querySelector("#settings-btn-audio").classList.add("selected");
+         document.querySelector("#background-settings").classList.remove("show");
+         document.querySelector("#settings-btn-background").classList.remove("selected");
+   };
+
+   const toggleSwitch = (toggleSwitch) => {
+      toggleSwitch.classList.toggle("on");
+   };
+
+   const showSelectList = (select) => {
+      select.classList.toggle("show");
+      if(!select.classList.contains("show")) setTimeout(() => select.children[1].scroll(0,0), 250);
+   };
+
+   const removeSelectList = () => {
+      document.querySelector(".select").classList.remove("show");
+      document.querySelector(".select").children[1].scroll(0, 0);
+   };
+
+   const removeSettings = () => {
+         darkBg.classList.remove("show");
+         settingsContainer.classList.remove("show");
    };
 
    const goBackToMenu = async () => {
@@ -151,9 +194,12 @@ export const uiController = (() => {
       } else if (levelDetails.classList.contains("show")) {
          levelDetails.classList.remove("show");
          await wait(350);
+         difficulty.className = "";
          levelsContainer.classList.add("show");
       } else {
          backBtn.classList.remove("show");
+         categorySelectorContainer.classList.remove("open");
+         categorySelectorContainer.scroll(0,0);
          await wait(350);
          levelGrid.scroll(0, 0);
          gameModes.classList.remove("hide");
@@ -288,6 +334,31 @@ export const uiController = (() => {
       }, 300);
    };
 
+   const tryAgain = () => {
+      playingLevel = false;
+      gameFinish.classList.remove("show");
+      setTimeout(() => {
+         setScore(0);
+         levelDetails.classList.add("show");
+      }, 350);
+   };
+
+   const nextLevel = () => {
+      playingLevel = false;
+      gameFinish.classList.remove("show");
+      setTimeout(() => {
+         gameController.setCurrentLevelNumber(gameController.getCurrentLevelNumber() + 1);
+         const level = gameController.getLevelData(gameController.getCurrentLevelNumber());
+         levelHeader.innerText = `Level ${level.levelNumber}`;
+         difficulty.classList.add(level.difficulty);
+         passingScore.innerText = `${TriviaGameLevel.getPassingScoreByDifficulty(level.difficulty)}`;
+         highScore.innerText = localStorage.getItem(`level-${level.levelNumber}-high-score`)
+            ? localStorage.getItem(`level-${level.levelNumber}-high-score`)
+            : 0;
+         levelDetails.classList.add("show");
+      }, 350);
+   };
+
    const wait = (time) => {
       return new Promise((resolve, reject) => {
          setTimeout(resolve, time);
@@ -298,8 +369,15 @@ export const uiController = (() => {
       showPlayBtn: showPlayBtn,
       togglePlayBtnHover: togglePlayBtnHover,
       toggleHelp: toggleHelp,
+      removeHelp: removeHelp,
       switchModeDescription: switchModeDescription,
       toggleSettings: toggleSettings,
+      showBackgroundSettings: showBackgroundSettings,
+      showAudioSettings: showAudioSettings,
+      toggleSwitch: toggleSwitch,
+      showSelectList: showSelectList,
+      removeSelectList: removeSelectList,
+      removeSettings: removeSettings,
       goBackToMenu: goBackToMenu,
       showGameBtns: showGameBtns,
       showGameModes: showGameModes,
@@ -319,5 +397,7 @@ export const uiController = (() => {
       updateTimerBar: updateTimerBar,
       showGameFinishScreen: showGameFinishScreen,
       playAgain: playAgain,
+      tryAgain: tryAgain,
+      nextLevel: nextLevel,
    };
 })();

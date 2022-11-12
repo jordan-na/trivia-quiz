@@ -1,8 +1,24 @@
 :root {
-   --beige: #f6d49c;
-   --mint: #8ff6ae;
-   --blue: #a0e7e5;
-   --pink: #ffaebc;
+   --bg1: #a0e7e5;
+   --bg2: #feaba1;
+   --bg3: #ff84c1;
+   --bg4: #b0b9ff;
+   --bg5: #9787c0;
+   --bg6: #c6b28b;
+   --bg7: #f4c197;
+   --bg8: #d2adfc;
+   --bg9: #e3ecaf;
+   --bg10: #ffd290;
+   --bg11: #ace49e;
+   --bg12: #b2be83;
+   --bg13: #95d7ee;
+   --bg14: #cee4d5;
+   --bg15: #df94da;
+   --bg16: #c0f889;
+   --bg17: #92fff9;
+   --bg18: #97b9ce;
+   --bg19: #ffe8a6;
+   --bg20: #bdecd5;
    --white: #fff;
    --light-gray: #ddd;
    --gray: #999;
@@ -74,13 +90,92 @@ body > * {
 
 #game-container {
    position: absolute;
-   background-color: var(--blue);
    height: 100%;
    width: 100%;
    aspect-ratio: 1;
    display: flex;
    justify-content: center;
    align-items: center;
+}
+
+.bg1 {
+   background-color: var(--bg1);
+}
+
+.bg2 {
+   background-color: var(--bg2);
+}
+
+.bg3 {
+   background-color: var(--bg3);
+}
+
+.bg4 {
+   background-color: var(--bg4);
+}
+
+.bg5 {
+   background-color: var(--bg5);
+}
+
+.bg6 {
+   background-color: var(--bg6);
+}
+
+.bg7 {
+   background-color: var(--bg7);
+}
+
+.bg8 {
+   background-color: var(--bg8);
+}
+
+.bg9 {
+   background-color: var(--bg9);
+}
+
+.bg10 {
+   background-color: var(--bg10);
+}
+
+.bg11 {
+   background-color: var(--bg11);
+}
+
+.bg12 {
+   background-color: var(--bg12);
+}
+
+.bg13 {
+   background-color: var(--bg13);
+}
+
+.bg14 {
+   background-color: var(--bg14);
+}
+
+.bg15 {
+   background-color: var(--bg15);
+}
+
+.bg16 {
+   background-color: var(--bg16);
+}
+
+.bg17 {
+   background-color: var(--bg17);
+}
+
+.bg18 {
+   background-color: var(--bg18);
+}
+
+.bg19 {
+   background-color: var(--bg19);
+}
+
+.bg20 {
+   background-color: var(--bg20);
 }
 
 #main-menu {
@@ -1097,21 +1192,21 @@ body > * {
    transform: translate(-50%, 50%);
 }
 
-.card-comp h2 {
+.card-comp > h2 {
    font-size: 25px;
    align-self: flex-start;
 }
 
-.card-comp button {
+.card-comp > button {
    justify-self: flex-end;
    align-self: flex-start;
 }
 
-.card-comp button:hover svg path {
+.card-comp > button:hover svg path {
    fill: var(--light-black);
 }
 
-.card-comp button svg {
+.card-comp > button svg {
    display: block;
 }
 
@@ -1175,4 +1270,221 @@ body > * {
    display: grid;
    grid-template-columns: 1fr 1fr;
    grid-template-rows: auto 1fr;
+}
+
+#settings-container #settings {
+   grid-column: span 2;
+   display: grid;
+   grid-template-columns: min-content 1fr;
+   margin-top: 20px;
+   gap: 15px;
+}
+
+#settings-nav {
+   display: flex;
+   flex-direction: column;
+   gap: 15px;
+   padding-right: 15px;
+   border-right: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+#settings-nav button {
+   padding: 8px 15px;
+   border-radius: 10px;
+}
+
+#settings-nav button.selected {
+   color: #fff;
+   background-color: #000;
+}
+
+#settings-nav button.selected:hover {
+   color: #fff;
+   background-color: #000;
+}
+
+#settings-nav button:hover {
+   background-color: rgba(0,0,0,0.75);
+   color: #fff;
+}
+
+#settings-controls > div {
+   display: none;
+}
+
+#settings-controls div.show {
+   display: grid !important;
+}
+
+#background-settings {
+   display: grid;
+   gap: 10px;
+   grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+}
+
+#background-settings .bg-btn {
+   aspect-ratio: 1;
+   height: auto;
+   width: 100%;
+   border-radius: 10px;
+   position: relative;
+}
+
+#background-settings .bg-btn::after {
+   display: block;
+   content: "";
+   position: absolute;
+   width: 30px;
+   height: 30px;
+   background-color: var(--white);
+   background-image: url("../assets/imgs/checkmark.png");
+   background-position: center;
+   background-size: 75%;
+   background-repeat: no-repeat;
+   border-radius: 50%;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   opacity: 0;
+   transition: opacity 0.2s;
+}
+
+.bg-btn:hover::after {
+   opacity: 0.65 !important;
+}
+
+.bg-btn.selected::after {
+   opacity: 1 !important;
+}
+
+#audio-settings {
+   display: flex;
+   flex-direction: column;
+   gap: 50px;
+}
+
+.audio-section {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+
+.audio-section h3 {
+   font-size: 18px;
+}
+
+.audio-type {
+   display: flex;
+   align-items: center;
+   gap: 15px;
+}
+
+.audio-type h2 {
+   font-size: 23px;
+}
+
+.toggle-switch {
+   height: 23px;
+   width: 48px;
+   border-radius: 12.5px;
+   position: relative;
+   background-color: var(--bg1);
+   border: 1px solid #eee;
+}
+
+.toggle-switch-background {
+   background-color: rgb(230, 230, 230);
+   position: absolute;
+   width: 105%;
+   height: 105%;
+   border-radius: inherit;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   transition: 0.3s;
+}
+
+.toggle-switch .circle {
+   background-color: #fff;
+   position: absolute;
+   height: 19px;
+   width: 19px;
+   top: 50%;
+   left: 2px;
+   transform: translateY(-50%);
+   border-radius: 50%;
+   transition: 0.3s;
+}
+
+.toggle-switch.on .toggle-switch-background{
+   height: 0;
+   width: 0;
+}
+
+.toggle-switch.on .circle {
+   left: 100%;
+   transform: translate(calc(-100% - 2px), -50%);
+}
+
+.music-select-container {
+   display: flex;
+   align-items: center;
+   gap: 30px;
+}
+
+.select {
+   position: relative;
+   background-color: rgb(230, 230, 230);
+   padding: 10px;
+   border-radius: 10px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   z-index: 5;
+   width: 115px;
+}
+
+.select img {
+   width: 10px;
+   transition: 0.3s;
+}
+
+.select.show img {
+   transform: rotate(180deg);
+}
+
+.select-list {
+   position: absolute;
+   list-style: none;
+   background-color: rgb(230, 230, 230);
+   width: 100%;
+   left: 0;
+   border-radius: 10px;
+   top: 10px;
+   max-height: 75px;
+   overflow-y: auto;
+   z-index: 4;
+   visibility: hidden;
+   opacity: 0;
+   transition: 0.3s;
+}
+
+.select.show .select-list {
+   top: 40px;
+   opacity: 1;
+   visibility: visible;
+}
+
+.select-list li {
+   padding: 3px 0;
+}
+
+.select-list li:hover {
+   color:rgb(80, 80, 80);
+}
+
+.volume-container {
+   display: flex;
+   align-items: center;
+   gap: 30px;
 }

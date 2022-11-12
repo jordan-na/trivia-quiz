@@ -4,6 +4,7 @@ import { utils } from "./utils.mjs";
 import { TriviaGame } from "./TriviaGame.mjs";
 import { CountDownTriviaGame } from "./CountdownTriviaGame.mjs";
 import { TriviaGameLevel } from "./TriviaGameLevel.mjs";
+import { audioController } from "./audio-controller.mjs";
 
 export const gameController = (() => {
    let game;
@@ -75,6 +76,7 @@ export const gameController = (() => {
       if(answer.correct) {
          game.increaseScore();
          uiController.setScore(game.getScore());
+         audioController.playWinSound();
          if(gameMode === "countdown") {
             const timeDifference = game.getTimeLimit() - game.getTime();
             if(timeDifference < game.getTimeToAdd()) game.addTime(timeDifference);
@@ -82,6 +84,7 @@ export const gameController = (() => {
          }
       } else {
          game.increaseNumWrong();
+         audioController.playLoseSound();
       }
       uiController.highlightAnswers();
       setTimeout(nextQuestion, 750);
@@ -105,11 +108,11 @@ export const gameController = (() => {
                   if(!prevHighScore || game.getScore() > prevHighScore) {
                      localStorage.setItem(`level-${currentLevel}-high-score`, game.getScore());
                   }
-                  uiController.showGameFinishScreen(gameMode, game);
-                  if(game.passed()) {
+                  if(game.passed() && currentLevel === highestLevelOpened) {
                      levelSquares[highestLevelOpened++].classList.add("open");
                      localStorage.setItem("highest-level-opened", highestLevelOpened);
                   }
+                  uiController.showGameFinishScreen(gameMode, game);
                } else {
                   uiController.showGameFinishScreen(gameMode);
                }
@@ -119,23 +122,23 @@ export const gameController = (() => {
    }
 
    const stopTimer = () => {
-      if(gameMode === "countdown" && game) game.stopTimer();
+      if(gameMode === "countdown" && game && game instanceof CountDownTriviaGame) game.stopTimer();
    };
 
    const getTimeLimit = () => {
       return timeLimit;
    }
 
-   const getLevelData = (levelIndex) => {
-      return levels[levelIndex];
+   const getLevelData = (levelNumber) => {
+      return levels[levelNumber - 1];
    };
 
-   const getCurrentLevelIndex = () => {
+   const getCurrentLevelNumber = () => {
       return currentLevel;
    }
 
-   const setCurrentLevelIndex = (index) => {
-      currentLevel = index;
+   const setCurrentLevelNumber = (level) => {
+      currentLevel = level;
    }
 
    const setMode = (mode) => {
@@ -150,8 +153,8 @@ export const gameController = (() => {
       stopTimer: stopTimer,
       getTimeLimit: getTimeLimit,
       getLevelData: getLevelData,
-      getCurrentLevelIndex: getCurrentLevelIndex,
-      setCurrentLevelIndex: setCurrentLevelIndex,
+      getCurrentLevelNumber: getCurrentLevelNumber,
+      setCurrentLevelNumber: setCurrentLevelNumber,
       setMode: setMode,
    };
 })();

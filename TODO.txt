@@ -1,2 +1,2 @@
-1. Store and show highest score for each level
-2. Add settings component
+1. Add settings component
+3. Make responsive
