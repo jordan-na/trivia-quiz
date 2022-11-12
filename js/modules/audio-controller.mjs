@@ -3,11 +3,11 @@ export const audioController = (() => {
    let playing = false;
 
    const music = [
-      new Audio("../../assets/audio/peaceful.mp3"),
-      new Audio("../../assets/audio/intense.wav"),
-      new Audio("../../assets/audio/focused.wav"),
-      new Audio("../../assets/audio/techno.wav"),
-      new Audio("../../assets/audio/safari.wav")
+      new Audio("https://cdn.jsdelivr.net/gh/jordan-na/trivia-quiz@main/assets/audio/peaceful.mp3"),
+      new Audio("https://cdn.jsdelivr.net/gh/jordan-na/trivia-quiz@main/assets/audio/intense.wav"),
+      new Audio("https://cdn.jsdelivr.net/gh/jordan-na/trivia-quiz@main/assets/audio/focused.wav"),
+      new Audio("https://cdn.jsdelivr.net/gh/jordan-na/trivia-quiz@main/assets/audio/techno.wav"),
+      new Audio("https://cdn.jsdelivr.net/gh/jordan-na/trivia-quiz@main/assets/audio/safari.wav"),
    ];
 
    music.forEach(m => {
@@ -17,10 +17,10 @@ export const audioController = (() => {
 
    let musicIndex = 0;
 
-   const winSfx = new Audio("../../assets/audio/win.wav");
+   const winSfx = new Audio("https://cdn.jsdelivr.net/gh/jordan-na/trivia-quiz@main/assets/audio/win.wav");
    winSfx.volume = 0.5;
    winSfx.muted = true;
-   const loseSfx = new Audio("../../assets/audio/lose.wav");
+   const loseSfx = new Audio("https://cdn.jsdelivr.net/gh/jordan-na/trivia-quiz@main/assets/audio/lose.wav");
    loseSfx.volume = 0.5;
    loseSfx.muted = true;
 

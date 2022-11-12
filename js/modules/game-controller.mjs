@@ -76,7 +76,7 @@ export const gameController = (() => {
       if(answer.correct) {
          game.increaseScore();
          uiController.setScore(game.getScore());
-         audioController.playWinSound();
+         setTimeout(audioController.playWinSound, 100);
          if(gameMode === "countdown") {
             const timeDifference = game.getTimeLimit() - game.getTime();
             if(timeDifference < game.getTimeToAdd()) game.addTime(timeDifference);
@@ -84,7 +84,7 @@ export const gameController = (() => {
          }
       } else {
          game.increaseNumWrong();
-         audioController.playLoseSound();
+         setTimeout(audioController.playLoseSound, 100);
       }
       uiController.highlightAnswers();
       setTimeout(nextQuestion, 750);
