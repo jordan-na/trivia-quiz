@@ -5,11 +5,11 @@ import { TriviaGame } from "./TriviaGame.mjs";
 import { CountDownTriviaGame } from "./CountdownTriviaGame.mjs";
 import { TriviaGameLevel } from "./TriviaGameLevel.mjs";
 import { audioController } from "./audio-controller.mjs";
+import { levels } from "./levels.mjs";
 
 export const gameController = (() => {
    let game;
    let gameMode;
-   let levels;
    let timeLimit = 60;
    let highestLevelOpened = localStorage.getItem("highest-level-opened") ? localStorage.getItem("highest-level-opened") : 1;
    let currentLevel = 1;
@@ -20,15 +20,7 @@ export const gameController = (() => {
    const levelSquares = document.querySelectorAll(".level");
    const gameFinish = document.querySelector("#game-finish");
 
-   const initLevels = async () => {
-      const data = await fetch("../../levels.json")
-         .then((res) => {
-            if (!res.ok) throw new Error(res.statusText);
-            return res;
-         })
-         .then((res) => res.json())
-         .catch((err) => console.log(err));
-      levels = data.levels;
+   const initLevels = () => {
       for(let i = 1; i < highestLevelOpened; i++) {
          levelSquares[i].classList.add("open");
       }
