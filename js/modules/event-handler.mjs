@@ -60,6 +60,7 @@ export const eventHandler = (() => {
       document.querySelectorAll(".bg-btn").forEach((btn, i) => {
          btn.addEventListener("click", () => {
             backgroundController.changeBackground(`bg${i + 1}`);
+            localStorage.setItem("trivia-quiz__background", `bg${i + 1}`);
             document.querySelectorAll(".bg-btn").forEach((btn) => btn.classList.remove("selected"));
             btn.classList.add("selected");
          });
