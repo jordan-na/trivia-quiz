@@ -1270,6 +1270,7 @@ body > * {
    display: grid;
    grid-template-columns: 1fr 1fr;
    grid-template-rows: auto 1fr;
+   overflow: hidden;
 }
 
 #settings-container #settings {
@@ -1278,6 +1279,7 @@ body > * {
    grid-template-columns: min-content 1fr;
    margin-top: 20px;
    gap: 15px;
+   overflow: hidden;
 }
 
 #settings-nav {
@@ -1306,6 +1308,10 @@ body > * {
 #settings-nav button:hover {
    background-color: rgba(0,0,0,0.75);
    color: #fff;
+}
+
+#settings-controls {
+   overflow-y: auto;
 }
 
 #settings-controls > div {
@@ -1487,4 +1493,56 @@ body > * {
    display: flex;
    align-items: center;
    gap: 30px;
+}
+
+@media only screen and (max-width: 1270px) {
+   #main-menu.grow {
+      height: 375px;
+   }
+   #categories-container .header {
+      margin-bottom: 35px;
+   }
+   #category-selector-container #category-selector {
+      margin-bottom: 35px;
+   }
+   #trivia-container {
+      width: 550px;
+   }
+   #trivia-container #score {
+      top: 60px;
+      right: 60px;
+   }
+   #trivia-container #question-container #question {
+      font-size: 18px;
+   }
+   #trivia-container .answers {
+      margin-top: 35px;
+   }
+   #trivia-container #multiple-answers {
+      gap: 20px;
+   }
+   #trivia-container #multiple-answers button {
+      padding: 8px;
+   }
+   #trivia-container #boolean-answers button {
+      padding: 25px 0;
+   }
+   #trivia-container #timer-bar {
+      bottom: 40px;
+   }
+   #game-finish {
+      height: 400px;
+      grid-template-rows: 300px auto;
+   }
+   #levels-container #level-grid {
+      margin-top: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+   }
+   .card-comp {
+      height: 400px;
+   }
+   #background-settings {
+      padding-right: 15px;
+      grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+   }
 }

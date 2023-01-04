@@ -1,7 +1,16 @@
 export const backgroundController = (() => {
    const initBackground = () => {
       const bg = localStorage.getItem("trivia-quiz__background");
-      changeBackground(bg ? bg : "bg1");
+      if (bg) {
+         changeBackground(bg);
+         const btnIndex = parseInt(bg.substring(2));
+         document.querySelectorAll(".bg-btn").forEach((btn, i) => {
+            if (i === btnIndex - 1) btn.classList.add("selected");
+         });
+      } else {
+         changeBackground("bg1");
+         document.querySelector(".bg-btn.bg1").classList.add("selected");
+      }
    };
 
    const changeBackground = (backgroundClass) => {
@@ -10,6 +19,6 @@ export const backgroundController = (() => {
 
    return {
       initBackground: initBackground,
-      changeBackground: changeBackground
-   }
+      changeBackground: changeBackground,
+   };
 })();
